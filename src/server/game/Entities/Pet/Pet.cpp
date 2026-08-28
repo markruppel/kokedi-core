@@ -2523,6 +2523,8 @@ float Pet::GetNativeObjectScale() const
 
         float scale = (maxScale - creatureFamily->minScale) * scaleMod + creatureFamily->minScale;
 
+        scale = scale * 1.35f;
+
         scale = std::min(scale, maxScale);
 
         return scale;
