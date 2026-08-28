@@ -1,0 +1,270 @@
+ Image acore/ac-wotlk-db-import:master Building 
+ Image acore/ac-wotlk-worldserver:master Building 
+ Image acore/ac-wotlk-client-data:master Building 
+ Image acore/ac-wotlk-authserver:master Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 2.62kB done
+#1 DONE 0.0s
+
+#2 [ac-worldserver internal] load build definition from Dockerfile
+#2 transferring dockerfile: 8.69kB done
+#2 DONE 0.0s
+
+#3 [ac-db-import internal] load metadata for docker.io/library/ubuntu:24.04
+#3 DONE 0.4s
+
+#4 [ac-db-import internal] load .dockerignore
+#4 transferring context: 261B done
+#4 DONE 0.0s
+
+#5 [ac-authserver internal] load build context
+#5 DONE 0.0s
+
+#6 [ac-db-import internal] load build context
+#6 DONE 0.0s
+
+#7 [ac-client-data-init internal] load build context
+#7 transferring context: 6.69kB 0.0s done
+#7 DONE 0.1s
+
+#8 [ac-db-import skeleton 1/4] FROM docker.io/library/ubuntu:24.04@sha256:786a8b558f7be160c6c8c4a54f9a57274f3b4fb1491cf65146521ae77ff1dc54
+#8 resolve docker.io/library/ubuntu:24.04@sha256:786a8b558f7be160c6c8c4a54f9a57274f3b4fb1491cf65146521ae77ff1dc54
+#8 resolve docker.io/library/ubuntu:24.04@sha256:786a8b558f7be160c6c8c4a54f9a57274f3b4fb1491cf65146521ae77ff1dc54 0.1s done
+#8 DONE 0.1s
+
+#9 [ac-client-data-init skeleton 4/4] WORKDIR /azerothcore
+#9 CACHED
+
+#10 [ac-client-data-init client-data 1/2] RUN apt-get update &&     apt-get install -y curl unzip &&     rm -rf /var/lib/apt/lists/*
+#10 CACHED
+
+#11 [ac-client-data-init skeleton 2/4] RUN mkdir -pv         /azerothcore/bin                           /azerothcore/data                          /azerothcore/deps                          /azerothcore/env/dist/bin                  /azerothcore/env/dist/data/Cameras         /azerothcore/env/dist/data/dbc             /azerothcore/env/dist/data/maps            /azerothcore/env/dist/data/mmaps           /azerothcore/env/dist/data/vmaps           /azerothcore/env/dist/logs                 /azerothcore/env/dist/temp                 /azerothcore/env/dist/etc                  /azerothcore/modules                       /azerothcore/src                           /azerothcore/build
+#11 CACHED
+
+#12 [ac-client-data-init skeleton 3/4] RUN apt-get update                                                           && apt-get install -y --no-install-recommends tzdata ca-certificates     && ln -snf "/usr/share/zoneinfo/America/Los_Angeles" /etc/localtime                      && echo "America/Los_Angeles" > /etc/timezone                                              && dpkg-reconfigure --frontend noninteractive tzdata                     && rm -rf /var/lib/apt/lists/*
+#12 CACHED
+
+#13 [ac-client-data-init client-data 2/2] COPY --chown=: apps apps
+#13 CACHED
+
+#14 [ac-client-data-init] exporting to image
+#14 exporting layers done
+#14 exporting manifest sha256:bbb534c324aaed4cbafd5c9156cae81e36c592a73b04ab2b31da55040fe373c8 done
+#14 exporting config sha256:08bd3900c25f7e1ea54f17c33e99f99d38a6a7bdfa7d99380c2febe962900744 done
+#14 exporting attestation manifest sha256:b176293e1808f4c3845e5175d1651eda5c1b0b2b2cf264d01b0a3f345d021cab
+#14 exporting attestation manifest sha256:b176293e1808f4c3845e5175d1651eda5c1b0b2b2cf264d01b0a3f345d021cab 0.1s done
+#14 exporting manifest list sha256:8bb94197cd2f640764330006ffe867de51e8554d86d53b92486df774c9fab2e7 0.1s done
+#14 naming to docker.io/acore/ac-wotlk-client-data:master 0.0s done
+#14 unpacking to docker.io/acore/ac-wotlk-client-data:master
+#14 unpacking to docker.io/acore/ac-wotlk-client-data:master 0.0s done
+#14 DONE 0.3s
+
+#15 [ac-worldserver internal] load build context
+#15 transferring context: 660.03kB 0.4s done
+#15 DONE 0.5s
+
+#5 [ac-authserver internal] load build context
+#5 transferring context: 384.22kB 0.3s done
+#5 DONE 0.4s
+
+#16 [ac-worldserver build 7/8] WORKDIR /azerothcore/build
+#16 CACHED
+
+#17 [ac-worldserver worldserver 1/2] COPY --chown=acore:acore      --from=build      /azerothcore/env/dist/bin/worldserver /azerothcore/env/dist/bin/worldserver
+#17 CACHED
+
+#18 [ac-worldserver build 5/8] COPY src /azerothcore/src
+#18 CACHED
+
+#19 [ac-worldserver build 6/8] COPY modules /azerothcore/modules
+#19 CACHED
+
+#20 [ac-worldserver runtime 3/4] RUN userdel --remove ubuntu   && addgroup --gid "1000" "acore"   && adduser --disabled-password --gecos '' --uid "1000" --gid "1000" "acore"   && passwd -d "acore"   && chown -R "acore:acore" /azerothcore
+#20 CACHED
+
+#21 [ac-worldserver build 3/8] COPY conf /azerothcore/conf
+#21 CACHED
+
+#22 [ac-worldserver runtime 4/4] COPY --chown=1000:1000      --chmod=755      apps/docker/entrypoint.sh /azerothcore/entrypoint.sh
+#22 CACHED
+
+#23 [ac-worldserver build 4/8] COPY deps /azerothcore/deps
+#23 CACHED
+
+#24 [ac-worldserver build 8/8] RUN --mount=type=cache,target=/ccache,sharing=locked     --mount=type=bind,target=/azerothcore/.git,source=.git     git config --global --add safe.directory /azerothcore     && cmake /azerothcore        -DCMAKE_INSTALL_PREFIX="/azerothcore/env/dist"         -DAPPS_BUILD="all"                                     -DTOOLS_BUILD="all"                          -DSCRIPTS="static"                                  -DMODULES="static"                                  -DWITH_WARNINGS="ON"                      -DCMAKE_BUILD_TYPE="RelWithDebInfo"                            -DCMAKE_CXX_COMPILER="clang++"                         -DCMAKE_C_COMPILER="clang"                             -DCMAKE_CXX_COMPILER_LAUNCHER="ccache"                 -DCMAKE_C_COMPILER_LAUNCHER="ccache"                   -DBoost_USE_STATIC_LIBS="ON"                        && cmake --build . --config "RelWithDebInfo" -j $(($(nproc) + 1))     && cmake --install . --config "RelWithDebInfo"
+#24 CACHED
+
+#25 [ac-worldserver runtime 2/4] COPY --from=build /azerothcore/env/dist/etc/ /azerothcore/env/ref/etc
+#25 CACHED
+
+#26 [ac-worldserver build 2/8] COPY CMakeLists.txt /azerothcore/CMakeLists.txt
+#26 CACHED
+
+#27 [ac-worldserver worldserver 2/2] COPY --chown=acore:acore      lua_scripts /azerothcore/env/dist/lua_scripts
+#27 CACHED
+
+#28 [ac-authserver build 7/8] WORKDIR /azerothcore/build
+#28 CACHED
+
+#29 [ac-authserver runtime 1/4] RUN apt-get update     && apt-get install -y --no-install-recommends       libmysqlclient21 libreadline8 libicu74 libncurses5-dev       gettext-base default-mysql-client       adduser     && rm -rf /var/lib/apt/lists/*
+#29 CACHED
+
+#30 [ac-authserver build 2/8] COPY CMakeLists.txt /azerothcore/CMakeLists.txt
+#30 CACHED
+
+#31 [ac-authserver build 8/8] RUN --mount=type=cache,target=/ccache,sharing=locked     --mount=type=bind,target=/azerothcore/.git,source=.git     git config --global --add safe.directory /azerothcore     && cmake /azerothcore        -DCMAKE_INSTALL_PREFIX="/azerothcore/env/dist"         -DAPPS_BUILD="all"                                     -DTOOLS_BUILD="all"                          -DSCRIPTS="static"                                  -DMODULES="static"                                  -DWITH_WARNINGS="ON"                      -DCMAKE_BUILD_TYPE="RelWithDebInfo"                            -DCMAKE_CXX_COMPILER="clang++"                         -DCMAKE_C_COMPILER="clang"                             -DCMAKE_CXX_COMPILER_LAUNCHER="ccache"                 -DCMAKE_C_COMPILER_LAUNCHER="ccache"                   -DBoost_USE_STATIC_LIBS="ON"                        && cmake --build . --config "RelWithDebInfo" -j $(($(nproc) + 1))     && cmake --install . --config "RelWithDebInfo"
+#31 CACHED
+
+#32 [ac-authserver runtime 2/4] COPY --from=build /azerothcore/env/dist/etc/ /azerothcore/env/ref/etc
+#32 CACHED
+
+#33 [ac-authserver build 1/8] RUN apt-get update                                                         && apt-get install -y --no-install-recommends                                 build-essential ccache libtool cmake-data make cmake clang            git lsb-base curl unzip default-mysql-client openssl                          default-libmysqlclient-dev libboost-all-dev libssl-dev libmysql++-dev         libreadline-dev zlib1g-dev libbz2-dev libncurses5-dev liblzma-dev      && rm -rf /var/lib/apt/lists/*
+#33 CACHED
+
+#9 [ac-authserver skeleton 4/4] WORKDIR /azerothcore
+#9 CACHED
+
+#34 [ac-authserver build 6/8] COPY modules /azerothcore/modules
+#34 CACHED
+
+#35 [ac-authserver build 3/8] COPY conf /azerothcore/conf
+#35 CACHED
+
+#36 [ac-authserver runtime 3/4] RUN userdel --remove ubuntu   && addgroup --gid "1000" "acore"   && adduser --disabled-password --gecos '' --uid "1000" --gid "1000" "acore"   && passwd -d "acore"   && chown -R "acore:acore" /azerothcore
+#36 CACHED
+
+#12 [ac-authserver skeleton 3/4] RUN apt-get update                                                           && apt-get install -y --no-install-recommends tzdata ca-certificates     && ln -snf "/usr/share/zoneinfo/America/Los_Angeles" /etc/localtime                      && echo "America/Los_Angeles" > /etc/timezone                                              && dpkg-reconfigure --frontend noninteractive tzdata                     && rm -rf /var/lib/apt/lists/*
+#12 CACHED
+
+#37 [ac-authserver build 5/8] COPY src /azerothcore/src
+#37 CACHED
+
+#38 [ac-authserver build 4/8] COPY deps /azerothcore/deps
+#38 CACHED
+
+#11 [ac-authserver skeleton 2/4] RUN mkdir -pv         /azerothcore/bin                           /azerothcore/data                          /azerothcore/deps                          /azerothcore/env/dist/bin                  /azerothcore/env/dist/data/Cameras         /azerothcore/env/dist/data/dbc             /azerothcore/env/dist/data/maps            /azerothcore/env/dist/data/mmaps           /azerothcore/env/dist/data/vmaps           /azerothcore/env/dist/logs                 /azerothcore/env/dist/temp                 /azerothcore/env/dist/etc                  /azerothcore/modules                       /azerothcore/src                           /azerothcore/build
+#11 CACHED
+
+#39 [ac-authserver runtime 4/4] COPY --chown=1000:1000      --chmod=755      apps/docker/entrypoint.sh /azerothcore/entrypoint.sh
+#39 CACHED
+
+#40 [ac-authserver authserver 1/1] COPY --chown=acore:acore      --from=build      /azerothcore/env/dist/bin/authserver /azerothcore/env/dist/bin/authserver
+#40 CACHED
+
+#41 [ac-authserver] exporting to image
+#41 exporting layers 0.0s done
+#41 exporting manifest sha256:67599bde634dc529a022f2ecc2b23429fae8999572d4b939f0bb6fd46233f8d3 0.0s done
+#41 exporting config sha256:b4d8edb0f5d6e1c6da73d0766b12e880080f9d55e3b14d49fb2ec615a2576489 0.0s done
+#41 exporting attestation manifest sha256:b90c5dd4fecc79d1d31b09e4d50316af0f9923c9fb3054fe5ec875a82420a8c0
+#41 exporting attestation manifest sha256:b90c5dd4fecc79d1d31b09e4d50316af0f9923c9fb3054fe5ec875a82420a8c0 0.2s done
+#41 exporting manifest list sha256:13a17a95b5593f66cbf04b8dd90f6877b7f366faa1c7aa900feb001e6843c9f4
+#41 exporting manifest list sha256:13a17a95b5593f66cbf04b8dd90f6877b7f366faa1c7aa900feb001e6843c9f4 0.1s done
+#41 naming to docker.io/acore/ac-wotlk-authserver:master 0.0s done
+#41 unpacking to docker.io/acore/ac-wotlk-authserver:master
+#41 ...
+
+#42 [ac-client-data-init] resolving provenance for metadata file
+#42 DONE 0.0s
+
+#41 [ac-authserver] exporting to image
+#41 unpacking to docker.io/acore/ac-wotlk-authserver:master 0.1s done
+#41 DONE 0.7s
+
+#43 [ac-worldserver] exporting to image
+#43 exporting layers done
+#43 exporting manifest sha256:6c2ca72d9ed02aeb3b6bbe7d3630ec3a8bb4ced2c8c5663f11c225d89ace1258 0.0s done
+#43 exporting config sha256:0b955a5538b665b3fe25197b949cd54ad766edb24f1856d0274b8a23af8262b1 0.0s done
+#43 exporting attestation manifest sha256:a5b951d91313ac525bc4f483c53e88f66fc6811655c8d3d4e5935ac89b1b1737 0.2s done
+#43 exporting manifest list sha256:efeda453e7829623c4a0c179f0a6d7348c4383b7da54b9a140f984a9d44e9c10 0.1s done
+#43 naming to docker.io/acore/ac-wotlk-worldserver:master 0.0s done
+#43 unpacking to docker.io/acore/ac-wotlk-worldserver:master 0.1s done
+#43 DONE 0.7s
+
+#6 [ac-db-import internal] load build context
+#6 ...
+
+#44 [ac-authserver] resolving provenance for metadata file
+#44 DONE 0.1s
+
+#6 [ac-db-import internal] load build context
+#6 ...
+
+#45 [ac-worldserver] resolving provenance for metadata file
+#45 DONE 0.0s
+
+#6 [ac-db-import internal] load build context
+#6 transferring context: 837.04MB 3.5s done
+#6 DONE 3.5s
+
+#46 [ac-db-import runtime 3/4] RUN userdel --remove ubuntu   && addgroup --gid "1000" "acore"   && adduser --disabled-password --gecos '' --uid "1000" --gid "1000" "acore"   && passwd -d "acore"   && chown -R "acore:acore" /azerothcore
+#46 CACHED
+
+#29 [ac-db-import runtime 1/4] RUN apt-get update     && apt-get install -y --no-install-recommends       libmysqlclient21 libreadline8 libicu74 libncurses5-dev       gettext-base default-mysql-client       adduser     && rm -rf /var/lib/apt/lists/*
+#29 CACHED
+
+#12 [ac-db-import skeleton 3/4] RUN apt-get update                                                           && apt-get install -y --no-install-recommends tzdata ca-certificates     && ln -snf "/usr/share/zoneinfo/America/Los_Angeles" /etc/localtime                      && echo "America/Los_Angeles" > /etc/timezone                                              && dpkg-reconfigure --frontend noninteractive tzdata                     && rm -rf /var/lib/apt/lists/*
+#12 CACHED
+
+#11 [ac-db-import skeleton 2/4] RUN mkdir -pv         /azerothcore/bin                           /azerothcore/data                          /azerothcore/deps                          /azerothcore/env/dist/bin                  /azerothcore/env/dist/data/Cameras         /azerothcore/env/dist/data/dbc             /azerothcore/env/dist/data/maps            /azerothcore/env/dist/data/mmaps           /azerothcore/env/dist/data/vmaps           /azerothcore/env/dist/logs                 /azerothcore/env/dist/temp                 /azerothcore/env/dist/etc                  /azerothcore/modules                       /azerothcore/src                           /azerothcore/build
+#11 CACHED
+
+#47 [ac-db-import build 3/8] COPY conf /azerothcore/conf
+#47 CACHED
+
+#48 [ac-db-import build 5/8] COPY src /azerothcore/src
+#48 CACHED
+
+#49 [ac-db-import build 8/8] RUN --mount=type=cache,target=/ccache,sharing=locked     --mount=type=bind,target=/azerothcore/.git,source=.git     git config --global --add safe.directory /azerothcore     && cmake /azerothcore        -DCMAKE_INSTALL_PREFIX="/azerothcore/env/dist"         -DAPPS_BUILD="all"                                     -DTOOLS_BUILD="all"                          -DSCRIPTS="static"                                  -DMODULES="static"                                  -DWITH_WARNINGS="ON"                      -DCMAKE_BUILD_TYPE="RelWithDebInfo"                            -DCMAKE_CXX_COMPILER="clang++"                         -DCMAKE_C_COMPILER="clang"                             -DCMAKE_CXX_COMPILER_LAUNCHER="ccache"                 -DCMAKE_C_COMPILER_LAUNCHER="ccache"                   -DBoost_USE_STATIC_LIBS="ON"                        && cmake --build . --config "RelWithDebInfo" -j $(($(nproc) + 1))     && cmake --install . --config "RelWithDebInfo"
+#49 CACHED
+
+#50 [ac-db-import build 7/8] WORKDIR /azerothcore/build
+#50 CACHED
+
+#51 [ac-db-import db-import 2/3] COPY --chown=acore:acore     modules modules
+#51 CACHED
+
+#52 [ac-db-import build 2/8] COPY CMakeLists.txt /azerothcore/CMakeLists.txt
+#52 CACHED
+
+#9 [ac-db-import skeleton 4/4] WORKDIR /azerothcore
+#9 CACHED
+
+#53 [ac-db-import db-import 1/3] COPY --chown=acore:acore     data data
+#53 CACHED
+
+#54 [ac-db-import build 4/8] COPY deps /azerothcore/deps
+#54 CACHED
+
+#55 [ac-db-import runtime 4/4] COPY --chown=1000:1000      --chmod=755      apps/docker/entrypoint.sh /azerothcore/entrypoint.sh
+#55 CACHED
+
+#56 [ac-db-import runtime 2/4] COPY --from=build /azerothcore/env/dist/etc/ /azerothcore/env/ref/etc
+#56 CACHED
+
+#57 [ac-db-import build 6/8] COPY modules /azerothcore/modules
+#57 CACHED
+
+#33 [ac-db-import build 1/8] RUN apt-get update                                                         && apt-get install -y --no-install-recommends                                 build-essential ccache libtool cmake-data make cmake clang            git lsb-base curl unzip default-mysql-client openssl                          default-libmysqlclient-dev libboost-all-dev libssl-dev libmysql++-dev         libreadline-dev zlib1g-dev libbz2-dev libncurses5-dev liblzma-dev      && rm -rf /var/lib/apt/lists/*
+#33 CACHED
+
+#58 [ac-db-import db-import 3/3] COPY --chown=acore:acore     --from=build      /azerothcore/env/dist/bin/dbimport /azerothcore/env/dist/bin/dbimport
+#58 CACHED
+
+#59 [ac-db-import] exporting to image
+#59 exporting layers done
+#59 exporting manifest sha256:f732ebefb69c7e8058fd39fdbcb86303a6ebbc844a9cb2de44a38878922fbeee done
+#59 exporting config sha256:afcac753a3fb15b28e975c817a6642fbbc6600f800afec353815dfce620bfb5a done
+#59 exporting attestation manifest sha256:2909c15e48eca159fd290906bc49b8581416cf8807e0c7985ccbc90a7d76bcd9
+#59 exporting attestation manifest sha256:2909c15e48eca159fd290906bc49b8581416cf8807e0c7985ccbc90a7d76bcd9 0.1s done
+#59 exporting manifest list sha256:f0aef10406e1c30ff310e38b0f9d327c4da56ba79e74b31c194021ea9f7b9e70 0.0s done
+#59 naming to docker.io/acore/ac-wotlk-db-import:master
+#59 naming to docker.io/acore/ac-wotlk-db-import:master done
+#59 unpacking to docker.io/acore/ac-wotlk-db-import:master 0.0s done
+#59 DONE 0.2s
+
+#60 [ac-db-import] resolving provenance for metadata file
+#60 DONE 0.0s
+ Image acore/ac-wotlk-worldserver:master Built 
+ Image acore/ac-wotlk-authserver:master Built 
+ Image acore/ac-wotlk-client-data:master Built 
+ Image acore/ac-wotlk-db-import:master Built 
